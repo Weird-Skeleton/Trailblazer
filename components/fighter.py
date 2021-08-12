@@ -24,30 +24,72 @@ class Fighter(BaseComponent):
         self._hp = hp
         self.base_defense = base_defense
         self.base_power = base_power
-        self.strength = kwargs.get('strength',10)
-        self.dexterity = kwargs.get('dexterity',10)
-        self.constitution = kwargs.get('constitution',10)
-        self.intelligence = kwargs.get('intelligence',10)
-        self.wisdom = kwargs.get('wisdom',10)
-        self.charisma = kwargs.get('charisma',10)
+        self._strength = kwargs.get('strength',10)
+        self._dexterity = kwargs.get('dexterity',10)
+        self._constitution = kwargs.get('constitution',10)
+        self._intelligence = kwargs.get('intelligence',10)
+        self._wisdom = kwargs.get('wisdom',10)
+        self._charisma = kwargs.get('charisma',10)
+        self.strength_mod = (self.strength - 10) / 2
+        self.dexterity_mod = (self.dexterity - 10) / 2
+        self.constitution_mod = (self.constitution - 10) / 2
+        self.intelligence_mod = (self.intelligence - 10) / 2
+        self.wisdom_mod = (self.wisdom - 10) / 2
+        self.charisma_mod = (self.charisma - 10) / 2
 
+    @property
     def strength(self) -> int:
-        return self.strength
+        return self._strength
 
+    @property
     def dexterity(self) -> int:
-        return self.dexterity
+        return self._dexterity
 
+    @property
     def constitution(self) -> int:
-        return self.constitution
+        return self._constitution
 
+    @property
     def intelligence(self) -> int:
-        return self.intelligence
+        return self._intelligence
 
+    @property
     def wisdom(self) -> int:
-        return self.wisdom
+        return self._wisdom
 
+    @property
     def charisma(self) -> int:
-        return self.charisma
+        return self._charisma
+    
+    @strength.setter
+    def strength(self, value : int) -> None:
+        self._strength = max(0, value)
+        self.strength_mod = (self._strength - 10) / 2
+
+    @dexterity.setter
+    def dexterity(self, value : int) -> None:
+        self._dexterity = max(0, value)
+        self.dexterity_mod = (self._dexterity - 10) / 2
+
+    @constitution.setter
+    def constitution(self, value : int) -> None:
+        self._constitution = max(0, value)
+        self.constitution_mod = (self._constitution - 10) / 2
+
+    @intelligence.setter
+    def intelligence(self, value : int) -> None:
+        self._intelligence = max(0, value)
+        self.intelligence_mod = (self._intelligence - 10) / 2
+
+    @wisdom.setter
+    def wisdom(self, value : int) -> None:
+        self._wisdom = max(0, value)
+        self.wisdom_mod = (self._wisdom - 10) / 2
+
+    @charisma.setter
+    def charisma(self, value : int) -> None:
+        self._charisma = max(0, value)
+        self.charisma_mod = (self._charisma - 10) / 2
 
     @property
     def hp(self) -> int:
