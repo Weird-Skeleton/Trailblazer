@@ -185,6 +185,7 @@ class AskUserEventHandler(EventHandler):
 class CharacterScreenEventHandler(AskUserEventHandler):
     TITLE = "Character Sheet"
     HEIGHT = 14
+    last_string = "NONE"
 
     def on_render(self, console: tcod.Console) -> None:
         super().on_render(console)
@@ -196,8 +197,9 @@ class CharacterScreenEventHandler(AskUserEventHandler):
 
         y = 0
 
-        width = len(self.TITLE) + 4
-
+        #width = len(self.TITLE) + 4
+        width = 30
+        
         console.draw_frame(
             x=x,
             y=y,
@@ -212,6 +214,7 @@ class CharacterScreenEventHandler(AskUserEventHandler):
         
         console.print(
             x=x + 1, y=y + 1, string=f"Level: {self.engine.player.level.current_level}"
+
         )
         console.print(
             x=x + 1, y=y + 2, string=f"XP: {self.engine.player.level.current_xp}"
@@ -232,22 +235,22 @@ class CharacterScreenEventHandler(AskUserEventHandler):
         #Adding Pathfinder 2e stats to character screen
 
         console.print(
-            x=x + 1, y=y + 6, string=f"Strength: {self.engine.player.fighter.strength}"
+            x=x + 1, y=y + 6, string=f"Strength: {self.engine.player.fighter.strength}, Mod: {self.engine.player.fighter.strength_mod}"
         )
         console.print(
-            x=x + 1, y=y + 7, string=f"Dexterity: {self.engine.player.fighter.dexterity}"
+            x=x + 1, y=y + 7, string=f"Dexterity: {self.engine.player.fighter.dexterity}, Mod: {self.engine.player.fighter.dexterity_mod}"
         )
         console.print(
-            x=x + 1, y=y + 8, string=f"Constitution: {self.engine.player.fighter.constitution}"
+            x=x + 1, y=y + 8, string=f"Constitution: {self.engine.player.fighter.constitution}, Mod: {self.engine.player.fighter.constitution_mod}"
         )
         console.print(
-            x=x + 1, y=y + 9, string=f"Intelligence: {self.engine.player.fighter.intelligence}"
+            x=x + 1, y=y + 9, string=f"Intelligence: {self.engine.player.fighter.intelligence}, Mod: {self.engine.player.fighter.intelligence_mod}"
         )
         console.print(
-            x=x + 1, y=y + 10, string=f"Wisdom: {self.engine.player.fighter.wisdom}"
+            x=x + 1, y=y + 10, string=f"Wisdom: {self.engine.player.fighter.wisdom}, Mod: {self.engine.player.fighter.wisdom_mod}"
         )
         console.print(
-            x=x + 1, y=y + 11, string=f"Charisma: {self.engine.player.fighter.charisma}"
+            x=x + 1, y=y + 11, string=f"Charisma: {self.engine.player.fighter.charisma}, Mod: {self.engine.player.fighter.charisma_mod}"
         )
 
 
