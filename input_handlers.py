@@ -40,15 +40,7 @@ MOVE_KEYS = {
     tcod.event.K_KP_7: (-1, -1),
     tcod.event.K_KP_8: (0, -1),
     tcod.event.K_KP_9: (1, -1),
-    # Vi keys.
-    tcod.event.K_h: (-1, 0),
-    tcod.event.K_j: (0, 1),
-    tcod.event.K_k: (0, -1),
-    tcod.event.K_l: (1, 0),
-    tcod.event.K_y: (-1, -1),
-    tcod.event.K_u: (1, -1),
-    tcod.event.K_b: (-1, 1),
-    tcod.event.K_n: (1, 1),
+    # Vi keys - WE DONT NEED NO STINKIN VI KEYS
 }
 
 WAIT_KEYS = {
@@ -191,7 +183,8 @@ class AskUserEventHandler(EventHandler):
 
 
 class CharacterScreenEventHandler(AskUserEventHandler):
-    TITLE = "Character Information"
+    TITLE = "Character Sheet"
+    HEIGHT = 14
 
     def on_render(self, console: tcod.Console) -> None:
         super().on_render(console)
@@ -209,13 +202,14 @@ class CharacterScreenEventHandler(AskUserEventHandler):
             x=x,
             y=y,
             width=width,
-            height=7,
+            height=self.HEIGHT,
             title=self.TITLE,
             clear=True,
             fg=(255, 255, 255),
             bg=(0, 0, 0),
         )
 
+        
         console.print(
             x=x + 1, y=y + 1, string=f"Level: {self.engine.player.level.current_level}"
         )
@@ -233,6 +227,27 @@ class CharacterScreenEventHandler(AskUserEventHandler):
         )
         console.print(
             x=x + 1, y=y + 5, string=f"Defense: {self.engine.player.fighter.defense}"
+        )
+
+        #Adding Pathfinder 2e stats to character screen
+
+        console.print(
+            x=x + 1, y=y + 6, string=f"Strength: {self.engine.player.fighter.strength}"
+        )
+        console.print(
+            x=x + 1, y=y + 7, string=f"Dexterity: {self.engine.player.fighter.dexterity}"
+        )
+        console.print(
+            x=x + 1, y=y + 8, string=f"Constitution: {self.engine.player.fighter.constitution}"
+        )
+        console.print(
+            x=x + 1, y=y + 9, string=f"Intelligence: {self.engine.player.fighter.intelligence}"
+        )
+        console.print(
+            x=x + 1, y=y + 10, string=f"Wisdom: {self.engine.player.fighter.wisdom}"
+        )
+        console.print(
+            x=x + 1, y=y + 11, string=f"Charisma: {self.engine.player.fighter.charisma}"
         )
 
 
@@ -552,6 +567,8 @@ class MainGameEventHandler(EventHandler):
             return CharacterScreenEventHandler(self.engine)
         elif key == tcod.event.K_SLASH:
             return LookHandler(self.engine)
+        elif key == tcod.event.K_z:
+            return PopupMessage(self, "This is a test")
 
         # No valid key was pressed
         return action

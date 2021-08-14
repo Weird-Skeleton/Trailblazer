@@ -36,7 +36,11 @@ class Fighter(BaseComponent):
         self.intelligence_mod = (self.intelligence - 10) / 2
         self.wisdom_mod = (self.wisdom - 10) / 2
         self.charisma_mod = (self.charisma - 10) / 2
+        #Setting the combat stats in game to work off of the PF2E statistics, if they're provided
+        if 'strength' in kwargs:
+            self.base_power = self.strength_mod
 
+        
     @property
     def strength(self) -> int:
         return self._strength
