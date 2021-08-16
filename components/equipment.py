@@ -40,6 +40,20 @@ class Equipment(BaseComponent):
 
         return bonus
 
+    """
+    TODO: Add OPTIONAL (also TODO learn how to do optional stuff better) params for the following:
+    Item Level
+    Dice Size
+    Dize Number
+    Traits
+        - Traits to implement first
+        - Finesse
+        - Reach
+        - Agile
+    Runes
+    Misc Modifiers
+    """
+
     def item_is_equipped(self, item: Item) -> bool:
         return self.weapon == item or self.armor == item
 

@@ -8,7 +8,19 @@ from equipment_types import EquipmentType
 if TYPE_CHECKING:
     from entity import Item
 
-
+"""
+TODO : Add kwargs to Equippable for
+    Item Level
+    Dice Size
+    Dize Number
+    Traits
+        - Traits to implement first
+        - Finesse
+        - Reach
+        - Agile
+    Runes
+    Misc Modifiers
+"""
 class Equippable(BaseComponent):
     parent: Item
 
