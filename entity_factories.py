@@ -13,9 +13,9 @@ player = Actor(
     name="Player",
     ai_cls=HostileEnemy,
     equipment=Equipment(),
-    fighter=Fighter(hp=30, base_defense=1, base_power=2),
+    fighter=Fighter(hp=30, base_defense=1, base_power=2, strength=18),
     inventory=Inventory(capacity=26),
-    level=Level(level_up_base=200),
+    level=Level(level_up_base=1000),
 )
 
 orc = Actor(
