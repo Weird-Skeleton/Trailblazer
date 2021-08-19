@@ -16,7 +16,7 @@ class Level(BaseComponent):
         current_level: int = 1,
         current_xp: int = 0,
         level_up_base: int = 0,
-        level_up_factor: int = 150,
+        level_up_factor: int = 0,
         xp_given: int = 0,
     ):
         self.current_level = current_level
