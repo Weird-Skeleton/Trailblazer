@@ -36,6 +36,8 @@ class Entity:
         name: str = "<Unnamed>",
         blocks_movement: bool = False,
         render_order: RenderOrder = RenderOrder.CORPSE,
+        traits: list = [],
+        runes: list = []
     ):
         self.x = x
         self.y = y
@@ -44,6 +46,8 @@ class Entity:
         self.name = name
         self.blocks_movement = blocks_movement
         self.render_order = render_order
+        self.traits = traits
+        self.runes = runes
         if parent:
             # If parent isn't provided now then it will be set later.
             self.parent = parent
@@ -99,6 +103,9 @@ class Actor(Entity):
         fighter: Fighter,
         inventory: Inventory,
         level: Level,
+        traits: list = [],
+        runes: list = []
+        
     ):
         super().__init__(
             x=x,
@@ -108,6 +115,8 @@ class Actor(Entity):
             name=name,
             blocks_movement=True,
             render_order=RenderOrder.ACTOR,
+            traits=traits,
+            runes=runes
         )
 
         self.ai: Optional[BaseAI] = ai_cls(self)
@@ -129,6 +138,19 @@ class Actor(Entity):
         """Returns True as long as this actor can perform actions."""
         return bool(self.ai)
 
+    """
+    TODO: Add OPTIONAL (also TODO learn how to do optional stuff better) params for the following:
+    Item Level : Done !!!!!!!!!!!!!!!!!!!! FUCK YEAH, IM A WIZARD
+    Dice Size
+    Dize Number
+    Traits
+        - Traits to implement first
+        - Finesse
+        - Reach
+        - Agile
+    Runes
+    Misc Modifiers
+    """
 
 class Item(Entity):
     def __init__(
@@ -141,6 +163,9 @@ class Item(Entity):
         name: str = "<Unnamed>",
         consumable: Optional[Consumable] = None,
         equippable: Optional[Equippable] = None,
+        traits: list = [],
+        runes: list = [],
+        **kwargs
     ):
         super().__init__(
             x=x,
@@ -150,8 +175,14 @@ class Item(Entity):
             name=name,
             blocks_movement=False,
             render_order=RenderOrder.ITEM,
+            traits=traits,
+            runes=runes
         )
 
+        self.item_level = kwargs.get("item_level", 0)
+        self.dice_size = kwargs.get("dice_size", 1) #this is the y in XdY
+        self.dice_number = kwargs.get("dice_number", 1) #this is the x in XdY
+        
         self.consumable = consumable
 
         if self.consumable:

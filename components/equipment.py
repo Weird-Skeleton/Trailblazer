@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 class Equipment(BaseComponent):
     parent: Actor
 
-    def __init__(self, weapon: Optional[Item] = None, armor: Optional[Item] = None):
+    def __init__(self, weapon: Optional[Item] = None, armor: Optional[Item] = None, **kwargs):
         self.weapon = weapon
         self.armor = armor
 
@@ -39,20 +39,6 @@ class Equipment(BaseComponent):
             bonus += self.armor.equippable.power_bonus
 
         return bonus
-
-    """
-    TODO: Add OPTIONAL (also TODO learn how to do optional stuff better) params for the following:
-    Item Level
-    Dice Size
-    Dize Number
-    Traits
-        - Traits to implement first
-        - Finesse
-        - Reach
-        - Agile
-    Runes
-    Misc Modifiers
-    """
 
     def item_is_equipped(self, item: Item) -> bool:
         return self.weapon == item or self.armor == item
