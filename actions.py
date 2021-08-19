@@ -4,6 +4,7 @@ from typing import Optional, Tuple, TYPE_CHECKING
 
 import color
 import exceptions
+import random
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -148,8 +149,19 @@ class MeleeAction(ActionWithDirection):
         if not target:
             raise exceptions.Impossible("Nothing to attack.")
 
-        damage = self.entity.fighter.power - target.fighter.defense
+        #Convereting the default melee action to a PF2E attack roll
+        #damage = self.entity.fighter.power - target.fighter.defense
 
+        attack_roll = random.uniform(1,20) + self.entity.fighter.power
+
+        if (attack_roll >= target.fighter.ac):
+            #TODO : Make the attack and damage rolls be handed to this function by the weapon itself, with a default for fists (shown here)
+            damage = random.uniform(1,4) + self.entity.fighter.strength
+        else:
+            damage = 0
+        
+        damage = self.entity.fighter.power
+        
         attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
         if self.entity is self.engine.player:
             attack_color = color.player_atk

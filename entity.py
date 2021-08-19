@@ -65,7 +65,7 @@ class Entity:
         clone.parent = gamemap
         gamemap.entities.add(clone)
         return clone
-
+    
     def place(self, x: int, y: int, gamemap: Optional[GameMap] = None) -> None:
         """Place this entitiy at a new location.  Handles moving across GameMaps."""
         self.x = x
