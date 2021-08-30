@@ -19,11 +19,9 @@ class Fighter(BaseComponent):
     #    self.base_defense = base_defense
     #    self.base_power = base_power
 
-    def __init__(self, hp: int, base_defense: int, base_power: int, **kwargs):
+    def __init__(self, hp: int, **kwargs):
         self.max_hp = hp
         self._hp = hp
-        self.base_defense = base_defense
-        self.base_power = base_power
         #ABILITY SCORES
         self._strength = kwargs.get('strength',10)
         self._dexterity = kwargs.get('dexterity',10)
@@ -40,10 +38,6 @@ class Fighter(BaseComponent):
         self.charisma_mod = (self.charisma - 10) // 2
         #ARMOR CLASS
         self.ac = 10 + self.dexterity_mod #TODO : Properly implement armor bonus to AC
-        
-        #Setting the combat stats in game to work off of the PF2E statistics, if they're provided
-        if 'strength' in kwargs:
-            self.base_power = self.strength_mod
 
         
     @property
@@ -112,11 +106,11 @@ class Fighter(BaseComponent):
 
     @property
     def defense(self) -> int:
-        return self.base_defense + self.defense_bonus
+        return self.defense_bonus
 
     @property
     def power(self) -> int:
-        return self.base_power + self.power_bonus
+        return self.power_bonus
 
     @property
     def defense_bonus(self) -> int:
