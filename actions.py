@@ -4,8 +4,7 @@ from typing import Optional, Tuple, TYPE_CHECKING
 
 import color
 import exceptions
-import random
-from random import randint
+from dice import Dice
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -153,11 +152,11 @@ class MeleeAction(ActionWithDirection):
         #Convereting the default melee action to a PF2E attack roll
         #damage = self.entity.fighter.power - target.fighter.defense
 
-        attack_roll = random.uniform(1,20) + self.entity.fighter.power
+        attack_roll = Dice.roll(1,20, self.entity.fighter.strength_mod)
 
         if (attack_roll >= target.fighter.ac):
             #TODO : Make the attack and damage rolls be handed to this function by the weapon itself, with a default for fists (shown here)
-            damage = randint(1,4) + self.entity.fighter.strength_mod
+            damage = Dice.roll(1,4, self.entity.fighter.strength_mod)
         else:
             damage = 0
         
