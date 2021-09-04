@@ -153,28 +153,42 @@ class MeleeAction(ActionWithDirection):
         #damage = self.entity.fighter.power - target.fighter.defense
 
         attack_roll = Dice.roll(1,20, self.entity.fighter.strength_mod)
+        hits = (attack_roll >= target.fighter.ac)
 
-        if (attack_roll >= target.fighter.ac):
+        if (hits):
             #TODO : Make the attack and damage rolls be handed to this function by the weapon itself, with a default for fists (shown here)
-            damage = Dice.roll(1,4, self.entity.fighter.strength_mod)
+            damage = Dice.roll(self.entity.equipment.weapon.dice_number,
+                               self.entity.equipment.weapon.dice_size,
+                               self.entity.fighter.strength_mod)
         else:
             damage = 0
         
-        attack_desc = f"{self.entity.name.capitalize()} attacks {target.name}"
+        attack_desc = f"{self.entity.name.capitalize()} attempts to attack {target.name}"
         if self.entity is self.engine.player:
             attack_color = color.player_atk
         else:
             attack_color = color.enemy_atk
 
-        if damage > 0:
+        if (hits) : 
             self.engine.message_log.add_message(
-                f"{attack_desc} for {damage} hit points.", attack_color
-            )
-            target.fighter.hp -= damage
+                f"{attack_desc} and hits! ({attack_roll} vs. AC{target.fighter.ac})", attack_color
+                )
         else:
             self.engine.message_log.add_message(
-                f"{attack_desc} but does no damage.", attack_color
+                f"{attack_desc} and misses. ({attack_roll} vs. AC{target.fighter.ac})", attack_color
+                )
+            
+        if damage > 0 and hits :
+            self.engine.message_log.add_message(
+                f"{self.entity.name.capitalize()} deals {damage} {self.entity.equipment.weapon.damage_type} damage.", attack_color
             )
+            target.fighter.hp -= damage
+        else :
+            if damage == 0 and hits :
+                self.engine.message_log.add_message(
+                    f"However, they deal no damage.", attack_color
+                )
+
 
 
 class MovementAction(ActionWithDirection):

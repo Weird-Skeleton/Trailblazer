@@ -25,7 +25,7 @@ orc = Actor(
     color=(63, 127, 63),
     name="Orc",
     ai_cls=HostileEnemy,
-    equipment=Equipment(),
+    equipment=Equipment(weapon = equippable.Sword()),
     fighter=Fighter(hp=10,
         strength=16, constitution=16, dexterity=14, wisdom=12, intelligence= 8,charisma=10
         ),
