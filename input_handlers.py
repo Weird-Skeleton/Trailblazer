@@ -199,7 +199,7 @@ class CharacterScreenEventHandler(AskUserEventHandler):
 
         #width = len(self.TITLE) + 4
         width = 30
-        
+
         console.draw_frame(
             x=x,
             y=y,
@@ -211,7 +211,7 @@ class CharacterScreenEventHandler(AskUserEventHandler):
             bg=(0, 0, 0),
         )
 
-        
+
         console.print(
             x=x + 1, y=y + 1, string=f"Level: {self.engine.player.level.current_level}"
 
@@ -223,13 +223,6 @@ class CharacterScreenEventHandler(AskUserEventHandler):
             x=x + 1,
             y=y + 3,
             string=f"XP for next Level: {self.engine.player.level.experience_to_next_level}",
-        )
-
-        console.print(
-            x=x + 1, y=y + 4, string=f"Attack: {self.engine.player.fighter.power}"
-        )
-        console.print(
-            x=x + 1, y=y + 5, string=f"Defense: {self.engine.player.fighter.defense}"
         )
 
         #Adding Pathfinder 2e stats to character screen
