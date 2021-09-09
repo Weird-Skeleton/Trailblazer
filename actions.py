@@ -190,7 +190,13 @@ class MeleeAction(ActionWithDirection):
                 )
 
 
-
+# TODO: Add Move Speed
+"""
+    Ideas for implementation :
+        - Popup message after moving a number of squares away from starting pos, then ask to confirm action?
+        - Reverse of that idea, asking if they'd like to commit to moving, then give them the alloted # of squres?
+        - Mouse click being movement, shows line of certain color up to move speed, then changes color to represent range?
+"""
 class MovementAction(ActionWithDirection):
     def perform(self) -> None:
         dest_x, dest_y = self.dest_xy

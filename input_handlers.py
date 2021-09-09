@@ -142,9 +142,12 @@ class EventHandler(BaseEventHandler):
         self.engine.handle_enemy_turns()
 
         self.engine.update_fov()
+
+        # TODO: Right now all entites still take 1 turn at a time, need to fix
+        # TODO: Make sure players actions are displayed on GUI, and enemy actions are not displayed anywhere.
         if (action.entity.fighter.actions_remaining > 0):
             return False
-        else: 
+        else:
             action.entity.fighter.actions_remaining = action.entity.fighter.apt
             return True
 

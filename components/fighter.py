@@ -25,6 +25,8 @@ class Fighter(BaseComponent):
         #ACTIONS
         self.apt = kwargs.get('apt',3) # APT stands for Actions Per Turn
         self.actions_remaining = self.apt
+        #MOVEMENT
+        self.move_speed = kwargs.get('move_speed', 30)
         #ABILITY SCORES
         self._strength = kwargs.get('strength',10)
         self._dexterity = kwargs.get('dexterity',10)
