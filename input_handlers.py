@@ -142,7 +142,11 @@ class EventHandler(BaseEventHandler):
         self.engine.handle_enemy_turns()
 
         self.engine.update_fov()
-        return True
+        if (action.entity.fighter.actions_remaining > 0):
+            return False
+        else: 
+            action.entity.fighter.actions_remaining = action.entity.fighter.apt
+            return True
 
     def ev_mousemotion(self, event: tcod.event.MouseMotion) -> None:
         if self.engine.game_map.in_bounds(event.tile.x, event.tile.y):

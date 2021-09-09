@@ -162,14 +162,14 @@ class MeleeAction(ActionWithDirection):
                                self.entity.fighter.strength_mod)
         else:
             damage = 0
-        
+
         attack_desc = f"{self.entity.name.capitalize()} attempts to attack {target.name}"
         if self.entity is self.engine.player:
             attack_color = color.player_atk
         else:
             attack_color = color.enemy_atk
 
-        if (hits) : 
+        if (hits) :
             self.engine.message_log.add_message(
                 f"{attack_desc} and hits! ({attack_roll} vs. AC{target.fighter.ac})", attack_color
                 )
@@ -177,7 +177,7 @@ class MeleeAction(ActionWithDirection):
             self.engine.message_log.add_message(
                 f"{attack_desc} and misses. ({attack_roll} vs. AC{target.fighter.ac})", attack_color
                 )
-            
+
         if damage > 0 and hits :
             self.engine.message_log.add_message(
                 f"{self.entity.name.capitalize()} deals {damage} {self.entity.equipment.weapon.damage_type} damage.", attack_color
@@ -205,8 +205,10 @@ class MovementAction(ActionWithDirection):
             # Destination is blocked by an entity.
             raise exceptions.Impossible("That way is blocked.")
 
-        self.entity.move(self.dx, self.dy)
+        self.engine.message_log.add_message(f"You have {self.entity.fighter.actions_remaining} actions remaining.")
 
+        self.entity.move(self.dx, self.dy)
+        self.entity.fighter.actions_remaining -= 1
 
 class BumpAction(ActionWithDirection):
     def perform(self) -> None:

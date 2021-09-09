@@ -22,6 +22,9 @@ class Fighter(BaseComponent):
     def __init__(self, hp: int, **kwargs):
         self.max_hp = hp
         self._hp = hp
+        #ACTIONS
+        self.apt = kwargs.get('apt',3) # APT stands for Actions Per Turn
+        self.actions_remaining = self.apt
         #ABILITY SCORES
         self._strength = kwargs.get('strength',10)
         self._dexterity = kwargs.get('dexterity',10)
@@ -39,7 +42,8 @@ class Fighter(BaseComponent):
         #ARMOR CLASS
         self.ac = 10 + self.dexterity_mod #TODO : Properly implement armor bonus to AC
 
-        
+
+
     @property
     def strength(self) -> int:
         return self._strength
@@ -63,7 +67,7 @@ class Fighter(BaseComponent):
     @property
     def charisma(self) -> int:
         return self._charisma
-    
+
     @strength.setter
     def strength(self, value : int) -> None:
         self._strength = max(0, value)
@@ -97,7 +101,7 @@ class Fighter(BaseComponent):
     @property
     def hp(self) -> int:
         return self._hp
-    
+
     @hp.setter
     def hp(self, value: int) -> None:
         self._hp = max(0, min(value, self.max_hp))
