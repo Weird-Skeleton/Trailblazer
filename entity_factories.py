@@ -7,12 +7,13 @@ from components.level import Level
 from entity import Actor, Item
 
 
+
 player = Actor(
     char="@",
     color=(255, 255, 255),
     name="Player",
     ai_cls=HostileEnemy,
-    equipment=Equipment(weapon = equippable.Dagger(), armor = equippable.LeatherArmor()),
+    equipment=Equipment(),
     fighter=Fighter(
         hp=30, # # TODO:  Setup HP in pf2e way
         strength=18, constitution=14, dexterity=14, wisdom=12, intelligence=10,charisma=10),

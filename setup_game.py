@@ -56,17 +56,17 @@ def new_game() -> Engine:
     something to do with the "deep copy" function messing with the entity factory, but I feel like this is just python weirdness.
     Possible Fixes : Add player starting inventory somewhere else (entity factory?), have someone who knows python look at it
     """
-    #dagger = copy.deepcopy(entity_factories.dagger)
-    #leather_armor = copy.deepcopy(entity_factories.leather_armor)
+    dagger = copy.deepcopy(entity_factories.dagger)
+    leather_armor = copy.deepcopy(entity_factories.leather_armor)
 
-    #dagger.parent = player.inventory
-    #leather_armor.parent = player.inventory
+    dagger.parent = player.inventory
+    leather_armor.parent = player.inventory
 
-    #player.inventory.items.append(dagger)
-    #player.equipment.toggle_equip(dagger, add_message=False)
+    player.inventory.items.append(dagger)
+    player.equipment.toggle_equip(dagger, add_message=False)
 
-    #player.inventory.items.append(leather_armor)
-    #player.equipment.toggle_equip(leather_armor, add_message=False)
+    player.inventory.items.append(leather_armor)
+    player.equipment.toggle_equip(leather_armor, add_message=False)
 
     return engine
 

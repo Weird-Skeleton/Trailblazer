@@ -179,9 +179,14 @@ class MeleeAction(ActionWithDirection):
                 )
 
         if damage > 0 and hits :
-            self.engine.message_log.add_message(
-                f"{self.entity.name.capitalize()} deals {damage} {self.entity.equipment.weapon.damage_type} damage.", attack_color
-            )
+            if self.entity.name == "Player":
+                self.engine.message_log.add_message(
+                    f"{self.entity.name.capitalize()} deals {damage} {self.entity.equipment.weapon.equippable.damage_type} damage.", attack_color
+                )
+            else :
+                self.engine.message_log.add_message(
+                    f"{self.entity.name.capitalize()} deals {damage} {self.entity.equipment.weapon.damage_type} damage.", attack_color
+                )
             target.fighter.hp -= damage
         else :
             if damage == 0 and hits :
