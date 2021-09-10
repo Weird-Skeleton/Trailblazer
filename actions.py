@@ -97,7 +97,7 @@ class EquipAction(Action):
     def perform(self) -> None:
         self.entity.equipment.toggle_equip(self.item)
 
-
+5628
 class WaitAction(Action):
     def perform(self) -> None:
         pass
@@ -216,10 +216,11 @@ class MovementAction(ActionWithDirection):
             # Destination is blocked by an entity.
             raise exceptions.Impossible("That way is blocked.")
 
-        self.engine.message_log.add_message(f"You have {self.entity.fighter.actions_remaining} actions remaining.")
+        self.entity.fighter.actions_remaining -= 1
+        self.engine.message_log.add_message(f"{self.entity.name} has {self.entity.fighter.actions_remaining} actions remaining.")
 
         self.entity.move(self.dx, self.dy)
-        self.entity.fighter.actions_remaining -= 1
+
 
 class BumpAction(ActionWithDirection):
     def perform(self) -> None:

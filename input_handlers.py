@@ -139,17 +139,18 @@ class EventHandler(BaseEventHandler):
             self.engine.message_log.add_message(exc.args[0], color.impossible)
             return False  # Skip enemy turn on exceptions.
 
-        self.engine.handle_enemy_turns()
-
-        self.engine.update_fov()
+        if(action.entity.fighter.actions_remaining == 0):
+            self.engine.handle_enemy_turns()
+            self.engine.update_fov()
 
         # TODO: Right now all entites still take 1 turn at a time, need to fix
         # TODO: Make sure players actions are displayed on GUI, and enemy actions are not displayed anywhere.
         if (action.entity.fighter.actions_remaining > 0):
             return False
         else:
-            action.entity.fighter.actions_remaining = action.entity.fighter.apt
             return True
+
+        self.engine.update_fov()
 
     def ev_mousemotion(self, event: tcod.event.MouseMotion) -> None:
         if self.engine.game_map.in_bounds(event.tile.x, event.tile.y):
